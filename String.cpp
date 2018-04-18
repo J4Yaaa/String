@@ -19,7 +19,7 @@ String::~String()
 }
 
 //必须把_str起始置为空
-//因为在后续出了这个函数作用于的时候,delete会尝试着去释放一个随机空间
+//因为在后续出了这个函数作用域的时候,delete会尝试着去释放一个随机空间
 //delete和free是不可以释放随机空间的,但是可以释放NULL
 String::String(const String& s):_str(NULL),_size(0),_capacity(0)
 {
@@ -63,13 +63,13 @@ void String::Expand(size_t n)
 
 void String::PushBack(char ch)
 {
-//    if(_size >= _capacity)
-//    {
-//        Expand(_capacity * 2);
-//    }
-//    _str[_size++] = ch;
-//    _str[_size] = '\0';
-    Insert(_size,ch);
+    if(_size >= _capacity)
+    {
+        Expand(_capacity * 2);
+    }
+    _str[_size++] = ch;
+    _str[_size] = '\0';
+//    Insert(_size,ch);
 }
 
 void String::PushBack(const char* str)
@@ -398,8 +398,9 @@ void String::Show()
 
 void TestString()
 {
-    String s1("hello world,hello everyday,hello tomorrow!");
-    s1.Show();
+    String s1("hello world");
+    s1.PushBack('!');
+    s1 = s1 + "aaaaa";
     s1.Show();
 }
 
